@@ -1,0 +1,55 @@
+<?php 
+
+include("conexion.php");
+$login      = $_POST['code'];
+$contrasena = $_POST['password'];
+
+$query = "SELECT con_usuario FROM usuarios WHERE cod_usuario = '$login'";
+	$resultado = mysqli_query ($con,$query); 
+
+
+
+while($res=mysqli_fetch_array($resultado)){
+		$Desi = $res['con_usuario'];
+	if ($Desi == $contrasena) {
+		
+
+	$query2 = "SELECT rol_usuario FROM usuarios WHERE cod_usuario = '$login'";
+	$resultado2 = mysqli_query ($con,$query2); 
+
+	while($res2=mysqli_fetch_array($resultado2)){
+		$Desi2 = $res2['rol_usuario'];
+
+	if ($Desi2 == '1') {
+		
+		header("location:estudiante.php");  ;
+	}
+
+		else if ($Desi2 == '2') {
+		
+		header("location:profesor.php");  ;
+	}	
+
+		else if ($Desi2 == '3') {
+		
+		header("location:index.html"); 
+	}		
+	
+	}
+		
+	}else {
+
+			echo " datos incorrectos !!"
+
+?>
+			<div class="back">
+						<a href="signin.html">Volver a ingreso</a>
+				</div>
+	<?php }
+
+
+  }
+	 ?>
+	
+	
+
